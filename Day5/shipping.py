@@ -1,3 +1,5 @@
+#import iso6346.py
+
 class ShippingContainer:
     next_serial = 1337
 
