@@ -1,4 +1,4 @@
-#import iso6346.py
+import iso6346
 
 class ShippingContainer:
     next_serial = 1337
@@ -22,16 +22,13 @@ class ShippingContainer:
         #return cls(owner_code, contents=list(items)) #instructors way
         return cls(owner_code, contents=list(items)) #without list() it will return a tuple
 
-    @classmethod
-    def create_from_string(cls, string):
-        cls.owner_code= string[1:2]
-        #cls.category_id = string[3]
-        cls.serial = string[4:-1]
-        return cls(cls.owner_code, contents=None)
-
+    @staticmethod
+    def _make_bic_code(owner_code, serial):
+        return iso6346.create(owner_code=owner_code, serial=str(serial).zfill(6))
 
     #Constructor
     def __init__(self, owner_code, contents):
         self.owner_code = owner_code
         self.contents = contents
-        self.serial = ShippingContainer._get_next_serial()
+        #self.serial = ShippingContainer._get_next_serial()
+        self.bic = ShippingContainer._make_bic_code(owner_code=owner_code, serial=ShippingContainer._get_next_serial())
