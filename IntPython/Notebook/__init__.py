@@ -1,0 +1,1 @@
+from IntPython.Notebook.notebook import Note, Notebook
